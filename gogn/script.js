@@ -5,11 +5,11 @@ class Videos {
   loadCategories(videos, categories) {
 
     // Býr til div röð fyrir hvern 'categories'
-      // Býr til <h2> með titil 'categories'
+    // - Býr til <h2> með titil 'categories'
     // Býr til 'videos' div fyrir hvert myndband undir hverjum 'categories'
-      // Smáḿynd, lengd myndbands í neðra hæra horni
-      // Titill myndbands
-      // Dagsetningar texti sem segir aldur myndbands
+    // - Smáḿynd, lengd myndbands í neðra hæra horni
+    // - Titill myndbands
+    // - Dagsetningar texti sem segir aldur myndbands
 
     const category = document.createElement('div');
     // Setja 'row' klassa
@@ -17,7 +17,6 @@ class Videos {
     const video = document.createElement('div');
     // Setja 'video' klassa
 
-    this.element.appendChild(
 
   }
 
@@ -25,7 +24,7 @@ class Videos {
 
     // Fær inn heiltölu dagsetningu myndbands (sekúndur síðan 1. jan 1970) og reiknar mismun frá núverandi dagsetningu
     // Skilar streng sem segir liðin tíma í dögum, vikum mánuðum eða árum
-        // Notar aðeins efsta stig mögulegt
+    // - Notar aðeins efsta stig mögulegt
   }
 
 
@@ -57,20 +56,74 @@ class Player {
 
     // Býr til <h1> með titli myndbands
     // Býr til div fyrir myndband
-        // Byrjar á pásu
-        // Ef myndbandið er á pásu þá kemur takki til að byrja það
+    // - Byrjar á pásu
+    // - Ef myndbandið er á pásu þá kemur takki til að byrja það
 
   }
 
   controls() {
 
     // Býr til div fyrir takka og 5 takka div innan þess
-        // 'Backwards' takki sem fer 3 sek aftur til baka í myndbandinu
-        // 'Play/Pause' takki sem spilar eða pásar myndbandið
-        // 'Mute' takki sem slekkur á hljóði án þess að breyta hljóðstyrk
-        // 'Fullscreen' takki sem lur myndbandið taka allan skjáin
-        // 'Forwards' takki sem fer 3 sek fram í myndbandinu
+    // - 'Backwards' takki sem fer 3 sek aftur til baka í myndbandinu
+    // - 'Play/Pause' takki sem spilar eða pásar myndbandið
+    // - 'Mute' takki sem slekkur á hljóði án þess að breyta hljóðstyrk
+    // - 'Fullscreen' takki sem lur myndbandið taka allan skjáin
+    // - 'Forwards' takki sem fer 3 sek fram í myndbandinu
 
+    const {
+      video
+    } = this;
+
+    const backwardsButton = document.createElement('button');
+    // bæta klasaheiti
+    // Setja rétt icon
+    // Append element við this.container
+    backwardsButton.addEventListener('click', video.currentTime -= 3);
+    // Append element við this.container
+
+    const playPauseButton = document.createElement('button');
+    // bæta klasaheiti
+    // Setja rétt icon, breytist til
+    // Append element við this.container
+    forwardsButton.addEventListener('click', playPause());
+    // Append element við this.container
+
+    const muteButton = document.createElement('button');
+    // bæta klasaheiti
+    // Setja rétt icon, breytist til
+    // Append element við this.container
+    muteButton.addEventListener('click', mute());
+    // Append element við this.container
+
+    const fullscreenButton = document.createElement('button');
+    // bæta klasaheiti
+    // Setja rétt icon
+    // Append element við this.container
+    muteButton.addEventListener('click', fullscreen());
+    // Append element við this.container
+
+    const forwardsButton = document.createElement('button');
+    // bæta klasaheiti
+    // Setja rétt icon
+    // Append element við this.container
+    forwardsButton.addEventListener('click', video.currentTime += 3);
+    // Append element við this.container
+
+
+    
+
+  }
+
+  playPause() {
+    const {
+      video
+    } = this;
+
+    if (video.paused) {
+      video.play();
+    } else {
+      video.pause();
+    }
   }
 
   fullscreen() {
@@ -88,14 +141,29 @@ class Player {
 
   }
 
-  load() {
+  mute() {
+    const {
+      video
+    } = this;
 
-    // Býr til beiðni fyrir myndbandið sem notandi vill sjá
-    // Tékkar villur, keyrir loadVideo() fallið ef engin villa kemur
-
-    // Sendir beiðnina undir lokin
-
+    if (video.muted) {
+      video.muted = false
+    } else {
+      video.muted = true;
+    }
   }
+
+}
+
+
+
+load() {
+
+  // Býr til beiðni fyrir myndbandið sem notandi vill sjá
+  // Tékkar villur, keyrir loadVideo() fallið ef engin villa kemur
+
+  // Sendir beiðnina undir lokin
+}
 
 }
 
