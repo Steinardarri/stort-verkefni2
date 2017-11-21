@@ -2,21 +2,28 @@ const URL = './videos.json';
 
 class Videos {
 
-  loadCategories(videos, categories) {
+  function loadCategories(title) {
 
-    // Býr til div röð fyrir hvern 'categories'
-    // - Býr til <h2> með titil 'categories'
-    // Býr til 'videos' div fyrir hvert myndband undir hverjum 'categories'
-    // - Smáḿynd, lengd myndbands í neðra hæra horni
-    // - Titill myndbands
-    // - Dagsetningar texti sem segir aldur myndbands
-
-    const category = document.createElement('div');
-    // Setja 'row' klassa
+    const container = document.createElement('div');
+    container.className = 'category';
+    
     const heading = document.createElement('h2');
-    const video = document.createElement('div');
-    // Setja 'video' klassa
+    heading.className = 'catergory__heading';
+    
+    const videoListContainer = document.createElement('div');
+    videoListContainer.className = 'category__videolist';
+    
+    const hr = document.createElement('hr');
+    hr.classList.add('hr');
+     
+    heading.textContent = title;
 
+    container.appendChild(heading);
+    container.appendChild(videoListContainer);
+    videosContainer.appendChild(container);
+    videosContainer.appendChild(hr);
+
+    return videoListContainer;
 
   }
 
@@ -25,7 +32,56 @@ class Videos {
     // Fær inn heiltölu dagsetningu myndbands (sekúndur síðan 1. jan 1970) og reiknar mismun frá núverandi dagsetningu
     // Skilar streng sem segir liðin tíma í dögum, vikum mánuðum eða árum
     // - Notar aðeins efsta stig mögulegt
+    
+   const timeSince = Date.now() - date;
+   
+    //Strengur fyrir klukkutíma
+   const hoursSince = Math.floor(timeSince / (1000 * 60 * 60));
+    
+    if (hoursSince === 1) {
+      return `Fyrir ${hoursSince} klukkustund síðan`;
+    }
+    if (hoursSince < 24) {
+      return `Fyrir ${hoursSince} klukkustundum síðan`;
+    }
+
+    //Strengur fyrir daga 
+    const daysSince = Math.floor(timeSince / (1000 * 60 * 60 * 24));
+    if (daysSince === 1) {
+      return `Fyrir ${daysSince} degi síðan`;
+    }
+    if (daysSince < 7) {
+      return `Fyrir ${daysSince} dögum síðan`;
+    }
+
+    // Strengur fyrir vikur
+    const weeksSince = Math.floor(daysSince / 7);
+    if (weeksSince === 1) {
+      return `Fyrir ${weeksSince} viku síðan`;
+    }
+    if (daysSince < 30) {
+      return `Fyrir ${weeksSince} vikum síðan`;
+    }
+
+    //Strengur fyrir mánuði
+    const monthsSince = Math.floor(daysSince / 30);
+    if (monthsSince === 1) {
+      return `Fyrir ${monthsSince} mánuði síðan`;
+    }
+    if (daysSince < 365) {
+      return `Fyrir ${monthsSince} mánuðum síðan`;
+    }
+
+    // Strengur fyrir ár
+    const yearsSince = Math.floor(daysSince / 365);
+    if (yearsSince === 1) {
+      return `Fyrir ${yearsSince} ári síðan`;
+    }
+    return `Fyrir ${yearsSince} árum síðan`;
   }
+  }
+
+  
 
 
 
