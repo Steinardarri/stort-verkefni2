@@ -2,20 +2,20 @@ const URL = './videos.json';
 
 class Videos {
 
-  function loadCategories(title) {
+  loadCategories(title) {
 
     const container = document.createElement('div');
     container.className = 'category';
-    
+
     const heading = document.createElement('h2');
     heading.className = 'catergory__heading';
-    
+
     const videoListContainer = document.createElement('div');
     videoListContainer.className = 'category__videolist';
-    
+
     const hr = document.createElement('hr');
     hr.classList.add('hr');
-     
+
     heading.textContent = title;
 
     container.appendChild(heading);
@@ -32,12 +32,12 @@ class Videos {
     // Fær inn heiltölu dagsetningu myndbands (sekúndur síðan 1. jan 1970) og reiknar mismun frá núverandi dagsetningu
     // Skilar streng sem segir liðin tíma í dögum, vikum mánuðum eða árum
     // - Notar aðeins efsta stig mögulegt
-    
+
    const timeSince = Date.now() - date;
-   
+
     //Strengur fyrir klukkutíma
    const hoursSince = Math.floor(timeSince / (1000 * 60 * 60));
-    
+
     if (hoursSince === 1) {
       return `Fyrir ${hoursSince} klukkustund síðan`;
     }
@@ -45,7 +45,7 @@ class Videos {
       return `Fyrir ${hoursSince} klukkustundum síðan`;
     }
 
-    //Strengur fyrir daga 
+    //Strengur fyrir daga
     const daysSince = Math.floor(timeSince / (1000 * 60 * 60 * 24));
     if (daysSince === 1) {
       return `Fyrir ${daysSince} degi síðan`;
@@ -79,9 +79,8 @@ class Videos {
     }
     return `Fyrir ${yearsSince} árum síðan`;
   }
-  }
 
-  
+
 
 
 
