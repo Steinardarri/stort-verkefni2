@@ -75,42 +75,39 @@ class Player {
     } = this;
 
     const backwardsButton = document.createElement('button');
-    // bæta klasaheiti
-    // Setja rétt icon
-    // Append element við this.container
+    // Tengja icon mynd við, sér klassi fyrir hvern takka ?
+    // backwardsButton.classList.add('forwards');
+    backwardsButton.classList.add('button');
     backwardsButton.addEventListener('click', video.currentTime -= 3);
-    // Append element við this.container
+    this.container.appendChild(backwardsButton);
 
     const playPauseButton = document.createElement('button');
-    // bæta klasaheiti
-    // Setja rétt icon, breytist til
-    // Append element við this.container
-    forwardsButton.addEventListener('click', playPause());
-    // Append element við this.container
+    // Tengja icon mynd við, sér klassi fyrir hvern takka ?
+    // playPauseButton.classList.add('forwards');
+    playPauseButton.classList.add('button');
+    playPauseButton.addEventListener('click', playPause());
+    this.container.appendChild(playPauseButton);
 
     const muteButton = document.createElement('button');
-    // bæta klasaheiti
-    // Setja rétt icon, breytist til
-    // Append element við this.container
+    // Tengja icon mynd við, sér klassi fyrir hvern takka ?
+    // muteButton.classList.add('forwards');
+    muteButton.classList.add('button');
     muteButton.addEventListener('click', mute());
-    // Append element við this.container
+    this.container.appendChild(muteButton);
 
     const fullscreenButton = document.createElement('button');
-    // bæta klasaheiti
-    // Setja rétt icon
-    // Append element við this.container
-    muteButton.addEventListener('click', fullscreen());
-    // Append element við this.container
+    // Tengja icon mynd við, sér klassi fyrir hvern takka ?
+    // fullscreenButton.classList.add('forwards');
+    fullscreenButton.classList.add('button');
+    fullscreenButton.addEventListener('click', fullscreen());
+    this.container.appendChild(fullscreenButton);
 
     const forwardsButton = document.createElement('button');
-    // bæta klasaheiti
-    // Setja rétt icon
-    // Append element við this.container
+    // Tengja icon mynd við, sér klassi fyrir hvern takka ?
+    // forwardsButton.classList.add('forwards');
+    forwardsButton.classList.add('button');
     forwardsButton.addEventListener('click', video.currentTime += 3);
-    // Append element við this.container
-
-
-    
+    this.container.appendChild(forwardsButton);
 
   }
 
