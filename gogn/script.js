@@ -241,7 +241,9 @@ class Player {
       if (request.status >= 200 && request.status < 400) {
         const data = JSON.parse(request.response);
         this.loadVideo(id, data.videos);
-
+      else {
+        this.error();
+      }
       }
     }
 
