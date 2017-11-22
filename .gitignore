@@ -2,3 +2,5 @@ node_modules/
 .DS_Store
 gogn/styles.css
 npm-debug.log
+gogn/script-compiled.js
+gogn/script-compiled.js.map

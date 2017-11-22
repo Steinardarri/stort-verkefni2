@@ -2,10 +2,20 @@ const URL = './videos.json';
 
 class Videos {
 
-  loadCategories(title) {
+  contstructor() {
+    this.container = document.querySelector('.videos');
+  }
 
-    const container = document.createElement('div');
-    container.className = 'category';
+  loadCategories(videos, categories) {
+
+    this.video = videos;
+    this.categories = categories;
+
+    const loading = document.querySelector('.video__loading');
+    container.removeChild(loading);
+
+    
+    container.createCategories();
 
     const heading = document.createElement('h2');
     heading.className = 'catergory__heading';
@@ -27,16 +37,25 @@ class Videos {
 
   }
 
+  createCategories() {
+    const heading = document.createElement('h2');
+
+  }
+
+  createVideos() {
+
+  }
+
   parseDate(date) {
 
     // Fær inn heiltölu dagsetningu myndbands (sekúndur síðan 1. jan 1970) og reiknar mismun frá núverandi dagsetningu
     // Skilar streng sem segir liðin tíma í dögum, vikum mánuðum eða árum
     // - Notar aðeins efsta stig mögulegt
 
-   const timeSince = Date.now() - date;
+    const timeSince = Date.now() - date;
 
     //Strengur fyrir klukkutíma
-   const hoursSince = Math.floor(timeSince / (1000 * 60 * 60));
+    const hoursSince = Math.floor(timeSince / (1000 * 60 * 60));
 
     if (hoursSince === 1) {
       return `Fyrir ${hoursSince} klukkustund síðan`;
@@ -80,7 +99,11 @@ class Videos {
     return `Fyrir ${yearsSince} árum síðan`;
   }
 
+  parseDuration(duration) {
 
+    // Fær inn lengd myndbands í sekúndum og breytir í mínútur:sekúndur
+
+  }
 
 
 
@@ -131,28 +154,28 @@ class Player {
 
     const backwardsButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
-    // backwardsButton.classList.add('forwards');
+    // backwardsButton.classList.add('backwards');
     backwardsButton.classList.add('button');
     backwardsButton.addEventListener('click', video.currentTime -= 3);
     this.container.appendChild(backwardsButton);
 
     const playPauseButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
-    // playPauseButton.classList.add('forwards');
+    // playPauseButton.classList.add('playPause');
     playPauseButton.classList.add('button');
     playPauseButton.addEventListener('click', playPause());
     this.container.appendChild(playPauseButton);
 
     const muteButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
-    // muteButton.classList.add('forwards');
+    // muteButton.classList.add('mute');
     muteButton.classList.add('button');
     muteButton.addEventListener('click', mute());
     this.container.appendChild(muteButton);
 
     const fullscreenButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
-    // fullscreenButton.classList.add('forwards');
+    // fullscreenButton.classList.add('fullscreen');
     fullscreenButton.classList.add('button');
     fullscreenButton.addEventListener('click', fullscreen());
     this.container.appendChild(fullscreenButton);
@@ -205,18 +228,16 @@ class Player {
     }
   }
 
-}
 
 
 
-load() {
+  load() {
 
-  // Býr til beiðni fyrir myndbandið sem notandi vill sjá
-  // Tékkar villur, keyrir loadVideo() fallið ef engin villa kemur
+    // Býr til beiðni fyrir myndbandið sem notandi vill sjá
+    // Tékkar villur, keyrir loadVideo() fallið ef engin villa kemur
 
-  // Sendir beiðnina undir lokin
-}
-
+    // Sendir beiðnina undir lokin
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
