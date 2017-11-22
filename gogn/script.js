@@ -1,6 +1,9 @@
 const URL = './videos.json';
 
 class Videos {
+  constructor() {
+    this.videosContainer = document.querySelector('.videos');
+  }
 
   loadCategories(title) {
 
@@ -107,13 +110,34 @@ class Videos {
 
 class Player {
 
+  constructor() {
+    this.playerContainer = document.querySelector('.player__container');
+  }
+
   loadVideo(video) {
+    const video = videos.find(v => c.id === id);
+
+    if (!video) {
+      this.error('Vídeó er ekki til');
+    } else {
+      this.empty(this.playerContainer);
+      this.setHeader(video.title);
+      this.createVideo(video);
+    }
 
     // Býr til <h1> með titli myndbands
     // Býr til div fyrir myndband
     // - Byrjar á pásu
     // - Ef myndbandið er á pásu þá kemur takki til að byrja það
 
+  }
+
+  createVideo(video) {
+    const { video: src, poster } = video;
+
+    const videoElement = document.createElement('video');
+    videoElement.classList.add('player__video');
+    videoElement.
   }
 
   controls() {
@@ -205,17 +229,30 @@ class Player {
     }
   }
 
-}
+
+
+  load() {
+    const request = new XMLHttpRequest();
+    const qs = new URLSearchParans(window.location.search);
+
+    const id = parseInt(qs.get('id'), 10);
+    request.open('GET', URL, true);
+    request.onload = () => {
+      if (request.status >= 200 && request.status < 400) {
+        const data = JSON.parse(request.response);
+        this.loadVideo(id, data.videos);
+
+      }
+    }
 
 
 
-load() {
 
   // Býr til beiðni fyrir myndbandið sem notandi vill sjá
   // Tékkar villur, keyrir loadVideo() fallið ef engin villa kemur
 
   // Sendir beiðnina undir lokin
-}
+  }
 
 }
 
