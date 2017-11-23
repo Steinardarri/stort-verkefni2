@@ -1,61 +1,76 @@
 const URL = './videos.json';
 
 class Videos {
-
   constructor() {
     this.videosContainer = document.querySelector('.videos');
   }
 
   loadCategories(videos, categories) {
-
-    this.video = videos;
-    this.categories = categories;
+    this.videosArray = videos;
 
     const loading = document.querySelector('.video__loading');
-    videosContainer.removeChild(loading);
+    this.videosContainer.removeChild(loading);
 
-    // Gera lykkju
-    createCategories();
-    //
-
-    const heading = document.createElement('h2');
-    heading.className = 'catergory__heading';
-
-    const videoListContainer = document.createElement('div');
-    videoListContainer.className = 'category__videolist';
-
-    const hr = document.createElement('hr');
-    hr.classList.add('hr');
-
-    heading.textContent = title;
-
-    container.appendChild(heading);
-    container.appendChild(videoListContainer);
-    videosContainer.appendChild(container);
-    videosContainer.appendChild(hr);
-
-    return videoListContainer;
-
+    categories.forEach(createCategories);
+    //Kallar á createCategories() fyrir hvert object í categories fylkinu
   }
 
   createCategories() {
-    const heading = document.createElement('h2');
+    const categoryRow = document.createElement('div');
+    categoryRow.classList.add('row category');
 
+    const heading = document.createElement('h2');
+    heading.classList.add('catergory__heading');
+    heading.appendChild(document.createTextNode(this.title));
+    categoryRow.appendChild(heading);
+
+    const videoList = document.createElement('div');
+    this.videoList = videoList; // Til að nota í createVideos()
+    videoList.classList.add('category__videolist');
+    categoryRow.appendChild(videoList);
+
+    this.videos.forEach(createVideos);
+    //Kallar á createVideos() á hvert gildi í videos fylkinu í objectinu
+
+    this.videosContainer.appendChild(categoryRow);
   }
 
-  createVideos() {
+  createVideos(id) {
+    const videoObj = this.videosArray.find(x => x.id === id);
 
+    const videoDiv = document.createElement('a');
+    // Setja href til videoObj.video
+    videoDiv.classList.add('catergory__video');
+
+    const videoDivImage = document.createElement('div');
+    videoDivImage.classList.add('catergory__video__image');
+    // Tengja við rétta mynd einhvernvegin => videoObj.poster
+    videoDiv.appendChild(videoDivImage);
+
+    const videoDivDuration = document.createElement('p');
+    videoDivImage.classList.add('catergory__video__duration');
+    const duration = parseDuration(videoObj.duration)
+    videoDivDuration.appendChild(document.createTextNode(duration));
+    videoDiv.appendChild(videoDivDuration);
+
+    const videoDivTitle = document.createElement('h3');
+    videoDivTitle.classList.add('catergory__video__title');
+    videoDivTitle.appendChild(document.createTextNode(videoObj.title));
+    videoDiv.appendChild(videoDivTitle);
+
+    const videoDivDate = document.createElement('p');
+    videoDivDate.classList.add('catergory__video__date');
+    const date = parseDate(videoObj.created)
+    videoDivDate.appendChild(document.createTextNode(date));
+    videoDiv.appendChild(videoDivDate);
+
+    this.videoList.appendChild(videoDiv);
   }
 
   parseDate(date) {
-
-    // Fær inn heiltölu dagsetningu myndbands (sekúndur síðan 1. jan 1970) og reiknar mismun frá núverandi dagsetningu
-    // Skilar streng sem segir liðin tíma í dögum, vikum mánuðum eða árum
-    // - Notar aðeins efsta stig mögulegt
-
     const timeSince = Date.now() - date;
 
-    //Strengur fyrir klukkutíma
+    // Strengur fyrir klukkutíma
     const hoursSince = Math.floor(timeSince / (1000 * 60 * 60));
 
     if (hoursSince === 1) {
@@ -65,7 +80,7 @@ class Videos {
       return `Fyrir ${hoursSince} klukkustundum síðan`;
     }
 
-    //Strengur fyrir daga
+    // Strengur fyrir daga
     const daysSince = Math.floor(timeSince / (1000 * 60 * 60 * 24));
     if (daysSince === 1) {
       return `Fyrir ${daysSince} degi síðan`;
@@ -83,7 +98,7 @@ class Videos {
       return `Fyrir ${weeksSince} vikum síðan`;
     }
 
-    //Strengur fyrir mánuði
+    // Strengur fyrir mánuði
     const monthsSince = Math.floor(daysSince / 30);
     if (monthsSince === 1) {
       return `Fyrir ${monthsSince} mánuði síðan`;
@@ -107,62 +122,58 @@ class Videos {
   }
 
 
-
   load() {
     const request = new XMLHttpRequest();
 
-    request.open('GET', url, true);
+    request.open('GET', URL, true);
     request.onload = () => {
       if (request.status >= 200 && request.status < 400) {
         const data = JSON.parse(request.response);
-        this.loadCategories(data.videos, data.categories)
-      } else
+        this.loadCategories(data.videos, data.categories);
+      } else {
         this.error();
-    }
+      }
+    };
 
     request.onerror = () => {
       this.error();
-    }
+    };
 
     request.send();
   }
-
 }
 
 class Player {
-
   constructor() {
     this.playerContainer = document.querySelector('.player__container');
   }
 
-  loadVideo(video) {
-    const video = videos.find(v => c.id === id);
+  loadVideo(id, videos) {
+    this.videosArray = videos;
 
-    if (!video) {
+    const videoObj = this.videosArray.find(x => x.id === id);
+
+    if (!videoObj) {
       this.error('Vídeó er ekki til');
     } else {
       this.empty(this.playerContainer);
-      this.setHeader(video.title);
-      this.createVideo(video);
+      this.setHeader(videoObj.title);
+      this.createVideo(videoObj);
     }
-
-    // Býr til <h1> með titli myndbands
-    // Býr til div fyrir myndband
-    // - Byrjar á pásu
-    // - Ef myndbandið er á pásu þá kemur takki til að byrja það
-
   }
 
   createVideo(video) {
-    const { video: src, poster } = video;
+    const {
+      video: src,
+      poster,
+    } = video;
 
     const videoElement = document.createElement('video');
     videoElement.classList.add('player__video');
-    videoElement.
+    // videoElement.
   }
 
   controls() {
-
     // Býr til div fyrir takka og 5 takka div innan þess
     // - 'Backwards' takki sem fer 3 sek aftur til baka í myndbandinu
     // - 'Play/Pause' takki sem spilar eða pásar myndbandið
@@ -171,7 +182,7 @@ class Player {
     // - 'Forwards' takki sem fer 3 sek fram í myndbandinu
 
     const {
-      video
+      video,
     } = this;
 
     const backwardsButton = document.createElement('button');
@@ -208,12 +219,11 @@ class Player {
     forwardsButton.classList.add('button');
     forwardsButton.addEventListener('click', video.currentTime += 3);
     this.container.appendChild(forwardsButton);
-
   }
 
   playPause() {
     const {
-      video
+      video,
     } = this;
 
     if (video.paused) {
@@ -225,7 +235,7 @@ class Player {
 
   fullscreen() {
     const {
-      video
+      video,
     } = this;
 
     if (video.requestFullscreen) {
@@ -235,21 +245,19 @@ class Player {
     } else if (video.webkitRequestFullscreen) {
       video.webkitRequestFullscreen();
     }
-
   }
 
   mute() {
     const {
-      video
+      video,
     } = this;
 
     if (video.muted) {
-      video.muted = false
+      video.muted = false;
     } else {
       video.muted = true;
     }
   }
-
 
 
   load() {
@@ -262,14 +270,11 @@ class Player {
       if (request.status >= 200 && request.status < 400) {
         const data = JSON.parse(request.response);
         this.loadVideo(id, data.videos);
-      else {
+      } else {
         this.error();
       }
-      }
-    }
-
+    };
   }
-
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -284,5 +289,4 @@ document.addEventListener('DOMContentLoaded', () => {
     player.load();
     player.controls();
   }
-
 });
