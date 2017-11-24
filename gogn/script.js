@@ -72,7 +72,7 @@ class Videos {
     videoDivDate.appendChild(document.createTextNode(date));
     videoDiv.appendChild(videoDivDate);
 
-    this.videoList.appendChild(videoDiv);
+    videoList.appendChild(videoDiv);
   }
 
   parseDate(date) {
