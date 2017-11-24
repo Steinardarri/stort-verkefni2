@@ -151,6 +151,11 @@ class Player {
   loadVideo(id, videos) {
     this.videosArray = videos;
 
+    console.log('loadVideo');
+
+    const loading = document.querySelector('.video__loading');
+    this.videosContainer.removeChild(loading);
+
     const videoObj = this.videosArray.find(x => x.id === id);
 
     if (!videoObj) {
@@ -262,15 +267,19 @@ class Player {
 
   load() {
     const request = new XMLHttpRequest();
-    const qs = new URLSearchParans(window.location.search);
+    const qs = new URLSearchParams(window.location.search);
+
+    console.log('load()');
 
     const id = parseInt(qs.get('id'), 10);
     request.open('GET', URL, true);
     request.onload = () => {
       if (request.status >= 200 && request.status < 400) {
+        console.log('load if');
         const data = JSON.parse(request.response);
         this.loadVideo(id, data.videos);
       } else {
+        console.log('load else');
         this.error();
       }
     };
@@ -280,6 +289,8 @@ class Player {
 document.addEventListener('DOMContentLoaded', () => {
   const videos = new Videos();
   const player = new Player();
+
+  console.log('eventlist');
 
   const videosContainer = document.querySelector('.videos');
 
