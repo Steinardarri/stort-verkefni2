@@ -2,40 +2,48 @@ const URL = './videos.json';
 
 class Videos {
   constructor() {
-    this.videosContainer = document.querySelector('.videos');
+    this.container = document.querySelector('.videos');
   }
 
   loadCategories(videos, categories) {
+    console.log('loadCategories()');
     this.videosArray = videos;
 
     const loading = document.querySelector('.video__loading');
-    this.videosContainer.removeChild(loading);
+    this.container.removeChild(loading);
 
-    categories.forEach(createCategories);
-    //Kallar á createCategories() fyrir hvert object í categories fylkinu
+    categories.forEach(this.createCategories);
+    // Kallar á createCategories() fyrir hvert object í categories fylkinu
   }
 
-  createCategories() {
+  createCategories(catObj) {
+    console.log('createCategories()');
+
     const categoryRow = document.createElement('div');
-    categoryRow.classList.add('row category');
+    categoryRow.classList.add('category');
+    categoryRow.classList.add('row');
 
     const heading = document.createElement('h2');
     heading.classList.add('catergory__heading');
-    heading.appendChild(document.createTextNode(this.title));
+    console.log(catObj.title);
+    heading.appendChild(document.createTextNode(catObj.title));
     categoryRow.appendChild(heading);
 
     const videoList = document.createElement('div');
-    this.videoList = videoList; // Til að nota í createVideos()
+    // this.videoList = videoList;
     videoList.classList.add('category__videolist');
     categoryRow.appendChild(videoList);
 
-    this.videos.forEach(createVideos);
-    //Kallar á createVideos() á hvert gildi í videos fylkinu í objectinu
+    console.log(catObj.videos);
 
-    this.videosContainer.appendChild(categoryRow);
+    this.container.appendChild(categoryRow);
+
+    catObj.videos.forEach(this.createVideos);
+
   }
 
   createVideos(id) {
+    console.log('createVideos()');
     const videoObj = this.videosArray.find(x => x.id === id);
 
     const videoDiv = document.createElement('a');
@@ -49,7 +57,7 @@ class Videos {
 
     const videoDivDuration = document.createElement('p');
     videoDivImage.classList.add('catergory__video__duration');
-    const duration = parseDuration(videoObj.duration)
+    const duration = this.parseDuration(videoObj.duration);
     videoDivDuration.appendChild(document.createTextNode(duration));
     videoDiv.appendChild(videoDivDuration);
 
@@ -60,7 +68,7 @@ class Videos {
 
     const videoDivDate = document.createElement('p');
     videoDivDate.classList.add('catergory__video__date');
-    const date = parseDate(videoObj.created)
+    const date = this.parseDate(videoObj.created);
     videoDivDate.appendChild(document.createTextNode(date));
     videoDiv.appendChild(videoDivDate);
 
@@ -196,21 +204,21 @@ class Player {
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
     // playPauseButton.classList.add('playPause');
     playPauseButton.classList.add('button');
-    playPauseButton.addEventListener('click', playPause());
+    playPauseButton.addEventListener('click', this.playPause());
     this.container.appendChild(playPauseButton);
 
     const muteButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
     // muteButton.classList.add('mute');
     muteButton.classList.add('button');
-    muteButton.addEventListener('click', mute());
+    muteButton.addEventListener('click', this.mute());
     this.container.appendChild(muteButton);
 
     const fullscreenButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
     // fullscreenButton.classList.add('fullscreen');
     fullscreenButton.classList.add('button');
-    fullscreenButton.addEventListener('click', fullscreen());
+    fullscreenButton.addEventListener('click', this.fullscreen());
     this.container.appendChild(fullscreenButton);
 
     const forwardsButton = document.createElement('button');
@@ -262,7 +270,7 @@ class Player {
 
   load() {
     const request = new XMLHttpRequest();
-    const qs = new URLSearchParans(window.location.search);
+    const qs = new URLSearchParams(window.location.search);
 
     const id = parseInt(qs.get('id'), 10);
     request.open('GET', URL, true);
@@ -284,8 +292,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const videosContainer = document.querySelector('.videos');
 
   if (videosContainer) {
+    console.log('loadV');
     videos.load();
   } else {
+    console.log('loadP');
     player.load();
     player.controls();
   }
