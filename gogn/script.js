@@ -3,6 +3,8 @@ const URL = './videos.json';
 class Videos {
   constructor() {
     this.container = document.querySelector('.videos');
+    console.log(typeof container);
+
   }
 
   loadCategories(videos, categories) {
@@ -35,6 +37,7 @@ class Videos {
     categoryRow.appendChild(videoList);
 
     console.log(catObj.videos);
+    console.log(typeof container);
 
     this.container.appendChild(categoryRow);
 
@@ -124,9 +127,12 @@ class Videos {
   }
 
   parseDuration(duration) {
+    // TODO athuga hvort þetta komi inn sem double tala.
+    const hours = duration / 60;
+    const seconds = duration % 60;
 
+    return `${hours}:${seconds}`;
     // Fær inn lengd myndbands í sekúndum og breytir í mínútur:sekúndur
-
   }
 
 
