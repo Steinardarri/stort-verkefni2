@@ -50,13 +50,8 @@ class Videos {
     const videoObj = this.videosArray.find(x => x.id === id);
 
     const videoDiv = document.createElement('a');
-<<<<<<< HEAD
     videoDiv.href = '/player.html?id=' + id;
     videoDiv.classList.add('catergory__video');
-=======
-    videoDiv.href = videoObj.video;
-    videoDiv.classList.add('category__video');
->>>>>>> 342db769de6f4e01d555c7a4f738ea9e64a4bc0c
 
     const videoDivImage = document.createElement('img');
     videoDivImage.classList.add('category__video__image');
