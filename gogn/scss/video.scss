@@ -1,48 +1,55 @@
 @import "config.scss";
 
-.header {
-  margin: $gutter;
-  font-family: $font-main;
-}
-
-a {
-  text-decoration: none;
-  color: #fff;
-}
-p {
-  font-family: $font-main;
-  font-size: 1em;
-}
-
-h2 {
-  padding-top: 2em;
-  padding-bottom: 1em;
-}
 .category {
   margin: 0 $gutter;
-  border-bottom: 1px solid #fff;
-  margin-bottom: 2em;
-
-
-  &__heading {
-    font-family: $font-main;
-    text-decoration: none;
-    // padding-top: 4em;
-  }
+  font-weight: bold;
 
   &__videolist {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+  }
+}
+
+.error {
+  margin-top: $gutter * 4;
+  text-align: center;
+}
+
+.loading {
+  margin-top: $gutter * 4;
+  text-align: center;
+}
+
+.video {
+  max-width: 49%;
+  margin-top: $gutter;
+
+  @media (max-width: 500px) {
+    max-width: 100%;
+  }
+
+  &__img {
+    max-width: 100%;
+  }
+
+  &__imgcontainer {
+    position: relative;
+    cursor: pointer;
+  }
+
+  &__imglabel {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 5px;
+    margin: 0 5px 10px 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  &__title {
+    margin: (1/2 * $gutter) 0;
     overflow: hidden;
+    white-space: nowrap;
   }
-
-  &__video {
-
-
-    &__image {
-
-    }
-  }
-
 }
