@@ -1,10 +1,9 @@
 const URL = './videos.json';
 
 class Videos {
-  constructor() {
-    this.container = document.querySelector('.videos');
+  constructor(container) {
+    this.container = container;
     console.log(typeof container);
-
   }
 
   loadCategories(videos, categories) {
@@ -14,8 +13,10 @@ class Videos {
     const loading = document.querySelector('.video__loading');
     this.container.removeChild(loading);
 
-    categories.forEach(this.createCategories);
     // Kallar á createCategories() fyrir hvert object í categories fylkinu
+    for (let i = 0; i < categories.length; i += 1) {
+      this.createCategories(categories[i]);
+    }
   }
 
   createCategories(catObj) {
@@ -32,30 +33,30 @@ class Videos {
     categoryRow.appendChild(heading);
 
     const videoList = document.createElement('div');
-    // this.videoList = videoList;
     videoList.classList.add('category__videolist');
+    // this.videoList = videoList;
+    for (let i = 0; i < catObj.videos.length; i += 1) {
+      const videoDiv = this.createVideo(catObj.videos[i], videoList);
+      videoList.appendChild(videoDiv);
+    }
     categoryRow.appendChild(videoList);
 
     console.log(catObj.videos);
-    console.log(typeof container);
 
     this.container.appendChild(categoryRow);
-
-    catObj.videos.forEach(this.createVideos);
-
   }
 
-  createVideos(id) {
+  createVideo(id) {
     console.log('createVideos()');
     const videoObj = this.videosArray.find(x => x.id === id);
 
     const videoDiv = document.createElement('a');
-    // Setja href til videoObj.video
+    videoDiv.href = videoObj.video;
     videoDiv.classList.add('catergory__video');
 
     const videoDivImage = document.createElement('div');
     videoDivImage.classList.add('catergory__video__image');
-    // Tengja við rétta mynd einhvernvegin => videoObj.poster
+    videoDivImage.style.backgroundImage = `url('${videoObj.poster}')`;
     videoDiv.appendChild(videoDivImage);
 
     const videoDivDuration = document.createElement('p');
@@ -75,7 +76,7 @@ class Videos {
     videoDivDate.appendChild(document.createTextNode(date));
     videoDiv.appendChild(videoDivDate);
 
-    videoList.appendChild(videoDiv);
+    return videoDiv;
   }
 
   parseDate(date) {
@@ -127,9 +128,8 @@ class Videos {
   }
 
   parseDuration(duration) {
-    // TODO athuga hvort þetta komi inn sem double tala.
-    const hours = duration / 60;
-    const seconds = duration % 60;
+    const hours = Math.round(duration / 60);
+    const seconds = Math.round(duration % 60);
 
     return `${hours}:${seconds}`;
     // Fær inn lengd myndbands í sekúndum og breytir í mínútur:sekúndur
@@ -292,10 +292,10 @@ class Player {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const videos = new Videos();
-  const player = new Player();
-
   const videosContainer = document.querySelector('.videos');
+
+  const videos = new Videos(videosContainer);
+  const player = new Player();
 
   if (videosContainer) {
     console.log('loadV');
