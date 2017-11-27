@@ -128,10 +128,14 @@ class Videos {
   }
 
   parseDuration(duration) {
-    const hours = Math.round(duration / 60);
+    const minutes = Math.round(duration / 60);
+    let sm = minutes.toString();
+    if (sm.length == 1) sm = 0 + sm;
     const seconds = Math.round(duration % 60);
+    let ss = seconds.toString();
+    if (ss.length == 1) ss = 0 + ss;
 
-    return `${hours}:${seconds}`;
+    return `${sm}:${ss}`;
     // Fær inn lengd myndbands í sekúndum og breytir í mínútur:sekúndur
   }
 
