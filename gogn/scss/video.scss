@@ -1,0 +1,46 @@
+@import "config.scss";
+
+.header {
+  margin: $gutter;
+  font-family: $font-main;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+p {
+  font-family: $font-main;
+  font-size: 1em;
+}
+
+h2 {
+  padding-top: 3em;
+  padding-bottom: 1em;
+}
+.category {
+  margin: 0 $gutter;
+
+
+  &__heading {
+    font-family: $font-main;
+    text-decoration: none;
+    padding-top: 4em;
+  }
+
+  &__videolist {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
+  &__video {
+    padding: 5,5,5,5;
+
+    &__image {
+      padding: 2,2,2,2;
+    }
+  }
+
+}
