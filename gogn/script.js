@@ -23,10 +23,10 @@ class Videos {
 
     const categoryRow = document.createElement('div');
     categoryRow.classList.add('category');
-    categoryRow.classList.add('row');
+    //categoryRow.classList.add('row');
 
     const heading = document.createElement('h2');
-    heading.classList.add('catergory__heading');
+    heading.classList.add('category__heading');
     console.log(catObj.title);
     heading.appendChild(document.createTextNode(catObj.title));
     categoryRow.appendChild(heading);
@@ -50,27 +50,33 @@ class Videos {
     const videoObj = this.videosArray.find(x => x.id === id);
 
     const videoDiv = document.createElement('a');
+<<<<<<< HEAD
     videoDiv.href = '/player.html?id=' + id;
     videoDiv.classList.add('catergory__video');
+=======
+    videoDiv.href = videoObj.video;
+    videoDiv.classList.add('category__video');
+>>>>>>> 342db769de6f4e01d555c7a4f738ea9e64a4bc0c
 
-    const videoDivImage = document.createElement('div');
-    videoDivImage.classList.add('catergory__video__image');
-    videoDivImage.style.backgroundImage = `url('${videoObj.poster}')`;
+    const videoDivImage = document.createElement('img');
+    videoDivImage.classList.add('category__video__image');
+    videoDivImage.setAttribute('src', videoObj.poster);
+    // videoDivImage.style.backgroundImage = `url('${videoObj.poster}')`;
     videoDiv.appendChild(videoDivImage);
 
     const videoDivDuration = document.createElement('p');
-    videoDivImage.classList.add('catergory__video__duration');
+    videoDivDuration.classList.add('category__video__duration');
     const duration = this.parseDuration(videoObj.duration);
     videoDivDuration.appendChild(document.createTextNode(duration));
     videoDiv.appendChild(videoDivDuration);
 
     const videoDivTitle = document.createElement('h3');
-    videoDivTitle.classList.add('catergory__video__title');
+    videoDivTitle.classList.add('category__video__title');
     videoDivTitle.appendChild(document.createTextNode(videoObj.title));
     videoDiv.appendChild(videoDivTitle);
 
     const videoDivDate = document.createElement('p');
-    videoDivDate.classList.add('catergory__video__date');
+    videoDivDate.classList.add('category__video__date');
     const date = this.parseDate(videoObj.created);
     videoDivDate.appendChild(document.createTextNode(date));
     videoDiv.appendChild(videoDivDate);
