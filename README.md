@@ -1,5 +1,5 @@
-Stóra Vefforrits Verkefni 2
+Vefforritun - Stórt Verkefni 2
 ====
 
-Steinar: sth319 - Ásdís: abg49 - Birgir: bos32
+Steinar: sth319 - Ásdís: abg49 - Birgir: bos32 - Rakel: rao15
 ----
