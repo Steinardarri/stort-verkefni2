@@ -128,6 +128,7 @@ class Videos {
   }
 
   parseDuration(duration) {
+    // Fær inn lengd myndbands í sekúndum og breytir í mínútur:sekúndur
     const minutes = Math.round(duration / 60);
     let sm = minutes.toString();
     if (sm.length === 1) sm = 0 + sm;
@@ -136,7 +137,6 @@ class Videos {
     if (ss.length === 1) ss = 0 + ss;
 
     return `${sm}:${ss}`;
-    // Fær inn lengd myndbands í sekúndum og breytir í mínútur:sekúndur
   }
 
 
@@ -168,7 +168,6 @@ class Player {
 
   loadVideo(id, videos) {
     this.videosArray = videos;
-
     const videoObj = this.videosArray.find(x => x.id === id);
 
     if (!videoObj) {
@@ -191,13 +190,21 @@ class Player {
     }
   }
 
+  setHeader(title) {
+    const playerTitle = document.createElement('h3');
+    playerTitle.classList.add('player__title');
+    playerTitle.appendChild(document.createTextNode(title));
+    this.container.appendChild(playerTitle);
+  }
+
   createVideo(video) {
-    /*const {
-      video: src,
-      poster,
-    } = video; */
+    // const {
+    //  video: src,
+    //  poster,
+    // } = video;
 
     const videoElement = document.createElement('video');
+    videoElement.src = video;
     videoElement.classList.add('player__video');
     videoElement.setAttribute('autoplay', false);
     videoElement.setAttribute('poster', video.poster);
@@ -212,7 +219,7 @@ class Player {
     // - 'Mute' takki sem slekkur á hljóði án þess að breyta hljóðstyrk
     // - 'Fullscreen' takki sem lur myndbandið taka allan skjáin
     // - 'Forwards' takki sem fer 3 sek fram í myndbandinu
-
+    console.log('controls()');
     const {
       video,
     } = this;
@@ -299,6 +306,7 @@ class Player {
     const id = parseInt(qs.get('id'), 10);
     request.open('GET', URL, true);
     request.onload = () => {
+      console.log('onload');
       if (request.status >= 200 && request.status < 400) {
         const data = JSON.parse(request.response);
         console.log('loadVideo')
@@ -329,6 +337,6 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     console.log('loadP');
     player.load();
-    //player.controls();
+    // player.controls();
   }
 });
