@@ -50,7 +50,7 @@ class Videos {
     const videoObj = this.videosArray.find(x => x.id === id);
 
     const videoDiv = document.createElement('a');
-    videoDiv.href = videoObj.video;
+    videoDiv.href = '/player.html?id=' + id;
     videoDiv.classList.add('catergory__video');
 
     const videoDivImage = document.createElement('div');
@@ -127,6 +127,7 @@ class Videos {
   }
 
   parseDuration(duration) {
+    // Fær inn lengd myndbands í sekúndum og breytir í mínútur:sekúndur
     const minutes = Math.round(duration / 60);
     let sm = minutes.toString();
     if (sm.length === 1) sm = 0 + sm;
@@ -135,7 +136,6 @@ class Videos {
     if (ss.length === 1) ss = 0 + ss;
 
     return `${sm}:${ss}`;
-    // Fær inn lengd myndbands í sekúndum og breytir í mínútur:sekúndur
   }
 
 
@@ -161,33 +161,43 @@ class Videos {
 }
 
 class Player {
-  constructor() {
-    this.playerContainer = document.querySelector('.player__container');
+  constructor(container) {
+    this.container = container;
   }
 
   loadVideo(id, videos) {
     this.videosArray = videos;
-
     const videoObj = this.videosArray.find(x => x.id === id);
 
     if (!videoObj) {
       this.error('Vídeó er ekki til');
     } else {
-      this.empty(this.playerContainer);
+      const loading = document.querySelector('.video__loading');
+      this.container.removeChild(loading);
+
+      this.createVideo(videoObj.video);
       this.setHeader(videoObj.title);
-      this.createVideo(videoObj);
+      this.controls();
     }
   }
 
+  setHeader(title) {
+    const playerTitle = document.createElement('h3');
+    playerTitle.classList.add('player__title');
+    playerTitle.appendChild(document.createTextNode(title));
+    this.container.appendChild(playerTitle);
+  }
+
   createVideo(video) {
-    const {
-      video: src,
-      poster,
-    } = video;
+    // const {
+    //  video: src,
+    //  poster,
+    // } = video;
 
     const videoElement = document.createElement('video');
+    videoElement.src = video;
     videoElement.classList.add('player__video');
-    // videoElement.
+    this.container.appendChild(videoElement);
   }
 
   controls() {
@@ -197,7 +207,7 @@ class Player {
     // - 'Mute' takki sem slekkur á hljóði án þess að breyta hljóðstyrk
     // - 'Fullscreen' takki sem lur myndbandið taka allan skjáin
     // - 'Forwards' takki sem fer 3 sek fram í myndbandinu
-
+    console.log('controls()');
     const {
       video,
     } = this;
@@ -284,6 +294,7 @@ class Player {
     const id = parseInt(qs.get('id'), 10);
     request.open('GET', URL, true);
     request.onload = () => {
+      console.log('onload');
       if (request.status >= 200 && request.status < 400) {
         const data = JSON.parse(request.response);
         this.loadVideo(id, data.videos);
@@ -291,14 +302,20 @@ class Player {
         this.error();
       }
     };
+    request.onerror = () => {
+      this.error();
+    };
+
+    request.send();
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const videosContainer = document.querySelector('.videos');
+  const playerContainer = document.querySelector('.player');
 
   const videos = new Videos(videosContainer);
-  const player = new Player();
+  const player = new Player(playerContainer);
 
   if (videosContainer) {
     console.log('loadV');
@@ -306,6 +323,6 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     console.log('loadP');
     player.load();
-    player.controls();
+    // player.controls();
   }
 });
