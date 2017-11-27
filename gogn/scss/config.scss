@@ -1,0 +1,11 @@
+//breytur fyrir mikið notaðar stærðir
+$max-width: 1200px;
+$gutter: 20px;
+
+$font-main: "Open Sans", helvetica, arial, sans-serif;
+$font-heading: "Roboto Slab", georgia, serif;
+
+@mixin formoutline() {
+  outline-width: 3px;
+  outline-color: #999;
+}
