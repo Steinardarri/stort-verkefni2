@@ -23,7 +23,7 @@ class Videos {
 
     const categoryRow = document.createElement('div');
     categoryRow.classList.add('category');
-    //categoryRow.classList.add('row');
+    // categoryRow.classList.add('row');
 
     const heading = document.createElement('h2');
     heading.classList.add('category__heading');
@@ -164,6 +164,7 @@ class Videos {
 class Player {
   constructor(container) {
     this.container = container;
+    this.videoObj = null;
   }
 
   loadVideo(id, videos) {
@@ -174,7 +175,7 @@ class Player {
       this.error('Vídeó er ekki til');
     } else {
       console.log('empty');
-      //this.empty(this.container);
+      // this.empty(this.container);
       const loading = document.querySelector('.video__loading');
       this.container.removeChild(loading);
 
@@ -190,13 +191,6 @@ class Player {
     }
   }
 
-  setHeader(title) {
-    const playerTitle = document.createElement('h3');
-    playerTitle.classList.add('player__title');
-    playerTitle.appendChild(document.createTextNode(title));
-    this.container.appendChild(playerTitle);
-  }
-
   createVideo(video) {
     // const {
     //  video: src,
@@ -206,10 +200,11 @@ class Player {
     const videoElement = document.createElement('video');
     videoElement.src = video;
     videoElement.classList.add('player__video');
-    videoElement.setAttribute('autoplay', false);
+    videoElement.autoplay = true;
     videoElement.setAttribute('poster', video.poster);
     videoElement.setAttribute('src', video.video);
     this.container.appendChild(videoElement);
+    this.videoObj = videoElement;
   }
 
   controls() {
@@ -220,81 +215,78 @@ class Player {
     // - 'Fullscreen' takki sem lur myndbandið taka allan skjáin
     // - 'Forwards' takki sem fer 3 sek fram í myndbandinu
     console.log('controls()');
-    const {
-      video,
-    } = this;
+    // const {
+    //   video,
+    // } = this;
+
 
     const backwardsButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
     // backwardsButton.classList.add('backwards');
     backwardsButton.classList.add('button');
-    backwardsButton.addEventListener('click', video.currentTime -= 3);
+    backwardsButton.addEventListener('click', this.onBackClick.bind(this));
     this.container.appendChild(backwardsButton);
 
     const playPauseButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
     // playPauseButton.classList.add('playPause');
     playPauseButton.classList.add('button');
-    playPauseButton.addEventListener('click', this.playPause());
+    playPauseButton.addEventListener('click', this.onPlayPause.bind(this));
     this.container.appendChild(playPauseButton);
 
     const muteButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
     // muteButton.classList.add('mute');
     muteButton.classList.add('button');
-    muteButton.addEventListener('click', this.mute());
+    muteButton.addEventListener('click', this.onMute.bind(this));
     this.container.appendChild(muteButton);
 
     const fullscreenButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
     // fullscreenButton.classList.add('fullscreen');
     fullscreenButton.classList.add('button');
-    fullscreenButton.addEventListener('click', this.fullscreen());
+    fullscreenButton.addEventListener('click', this.onFullscreen.bind(this));
     this.container.appendChild(fullscreenButton);
 
     const forwardsButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
     // forwardsButton.classList.add('forwards');
     forwardsButton.classList.add('button');
-    forwardsButton.addEventListener('click', video.currentTime += 3);
+    forwardsButton.addEventListener('click', this.onForwardClick.bind(this));
     this.container.appendChild(forwardsButton);
   }
 
-  playPause() {
-    const {
-      video,
-    } = this;
+  onForwardClick() {
+    this.videoObj.currentTime += 3;
+  }
 
-    if (video.paused) {
-      video.play();
+  onBackClick() {
+    this.videoObj.currentTime -= 3;
+  }
+
+  onPlayPause() {
+    if (this.videoObj.paused) {
+      this.videoObj.play();
     } else {
-      video.pause();
+      this.videoObj.pause();
     }
   }
 
-  fullscreen() {
-    const {
-      video,
-    } = this;
-
-    if (video.requestFullscreen) {
-      video.requestFullscreen();
-    } else if (video.mozRequestFullscreen) {
-      video.mozRequestFullscreen();
-    } else if (video.webkitRequestFullscreen) {
-      video.webkitRequestFullscreen();
+  onFullscreen() {
+    if (this.videoObj.requestFullscreen) {
+      this.videoObj.requestFullscreen();
+    } else if (this.videoObj.mozRequestFullscreen) {
+      this.videoObj.mozRequestFullscreen();
+    } else if (this.videoObj.webkitRequestFullscreen) {
+      this.videoObj.webkitRequestFullscreen();
     }
   }
 
-  mute() {
-    const {
-      video,
-    } = this;
-
-    if (video.muted) {
-      video.muted = false;
+  onMute() {
+    if (this.videoObj.muted) {
+      this.videoObj.muted = false;
     } else {
-      video.muted = true;
+      this.videoObj.muted = true;
     }
   }
 
@@ -337,6 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     console.log('loadP');
     player.load();
-    // player.controls();
+    player.controls();
   }
 });
