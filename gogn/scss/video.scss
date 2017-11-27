@@ -1,5 +1,3 @@
-@import "config.scss";
-
 .header {
   margin: $gutter;
   font-family: $font-main;
@@ -18,8 +16,10 @@ h2 {
   padding-top: 3em;
   padding-bottom: 1em;
 }
+
 .category {
   margin: 0 $gutter;
+  border-bottom: 1px solid #fff;
 
 
   &__heading {
@@ -31,15 +31,26 @@ h2 {
   &__videolist {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    // justify-content: space-between;
     overflow: hidden;
   }
 
   &__video {
-    
+    margin: 0 $gutter;
+    position: relative;
 
     &__image {
-      
+      max-width: 500px;
+    }
+
+    &__duration {
+      margin: 0;
+      padding: 10px 10px;
+      top: $gutter;
+      right: $gutter;
+      position: absolute;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.5);
     }
   }
 
