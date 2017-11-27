@@ -13,7 +13,6 @@ h2 {
   padding-top: 2em;
   padding-bottom: 1em;
 }
-
 .category {
   margin-bottom: $gutter * 2;
   border-bottom: 1px solid #fff;
@@ -31,7 +30,7 @@ h2 {
   &__videolist {
     display: flex;
     flex-wrap: wrap;
-    // justify-content: space-between;
+    justify-content: space-between;
     overflow: hidden;
     margin: $gutter;
   }
@@ -41,8 +40,6 @@ h2 {
     position: relative;
 
     &__image {
-      max-width: 500px;
-    }
 
     &__title {
       margin: $gutter/2 0;

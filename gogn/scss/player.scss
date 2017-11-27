@@ -9,6 +9,7 @@
 
 .player {
   display: flex;
+  
   max-width: $max-width;
   margin: 0 auto;
   // þar sem við erum að eiga við neikvæð margin á grid, setjum overflow-x
