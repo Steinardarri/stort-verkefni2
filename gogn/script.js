@@ -50,7 +50,7 @@ class Videos {
     const videoObj = this.videosArray.find(x => x.id === id);
 
     const videoDiv = document.createElement('a');
-    videoDiv.href = videoObj.video;
+    videoDiv.href = 'player.html?id=' + id;
     videoDiv.classList.add('category__video');
 
     const videoDivImage = document.createElement('img');
@@ -162,8 +162,8 @@ class Videos {
 }
 
 class Player {
-  constructor() {
-    this.playerContainer = document.querySelector('.player__container');
+  constructor(container) {
+    this.container = container;
   }
 
   loadVideo(id, videos) {
@@ -174,21 +174,35 @@ class Player {
     if (!videoObj) {
       this.error('Vídeó er ekki til');
     } else {
-      this.empty(this.playerContainer);
-      this.setHeader(videoObj.title);
+      console.log('empty');
+      //this.empty(this.container);
+      const loading = document.querySelector('.video__loading');
+      this.container.removeChild(loading);
+
+      console.log('header');
+      const titleElement = document.createElement('h1');
+      titleElement.classList.add('title');
+      titleElement.appendChild(document.createTextNode(videoObj.title));
+      const headerContainer = document.querySelector('.header');
+      headerContainer.appendChild(titleElement);
+
+      console.log('video');
       this.createVideo(videoObj);
     }
   }
 
   createVideo(video) {
-    const {
+    /*const {
       video: src,
       poster,
-    } = video;
+    } = video; */
 
     const videoElement = document.createElement('video');
     videoElement.classList.add('player__video');
-    // videoElement.
+    videoElement.setAttribute('autoplay', false);
+    videoElement.setAttribute('poster', video.poster);
+    videoElement.setAttribute('src', video.video);
+    this.container.appendChild(videoElement);
   }
 
   controls() {
@@ -287,19 +301,27 @@ class Player {
     request.onload = () => {
       if (request.status >= 200 && request.status < 400) {
         const data = JSON.parse(request.response);
+        console.log('loadVideo')
         this.loadVideo(id, data.videos);
       } else {
         this.error();
       }
     };
+
+    request.onerror = () => {
+      this.error();
+    };
+
+    request.send();
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const videosContainer = document.querySelector('.videos');
+  const playerContainer = document.querySelector('.player');
 
   const videos = new Videos(videosContainer);
-  const player = new Player();
+  const player = new Player(playerContainer);
 
   if (videosContainer) {
     console.log('loadV');
@@ -307,6 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     console.log('loadP');
     player.load();
-    player.controls();
+    //player.controls();
   }
 });

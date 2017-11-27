@@ -13,19 +13,20 @@ p {
 }
 
 h2 {
-  padding-top: 3em;
+  padding-top: 2em;
   padding-bottom: 1em;
 }
 
 .category {
   margin: 0 $gutter;
   border-bottom: 1px solid #fff;
+  margin-bottom: 2em;
 
 
   &__heading {
     font-family: $font-main;
     text-decoration: none;
-    padding-top: 4em;
+    // padding-top: 4em;
   }
 
   &__videolist {
