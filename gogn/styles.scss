@@ -1,24 +1,197 @@
 @import "scss/config";
 
+a,
+abbr,
+acronym,
+address,
+applet,
+article,
+aside,
+audio,
+b,
+big,
+blockquote,
+body,
+canvas,
+caption,
+center,
+cite,
+code,
+dd,
+del,
+details,
+dfn,
+div,
+dl,
+dt,
+em,
+embed,
+fieldset,
+figcaption,
+figure,
+footer,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+hgroup,
+html,
+i,
+iframe,
+img,
+ins,
+kbd,
+label,
+legend,
+li,
+mark,
+menu,
+nav,
+object,
+ol,
+output,
+p,
+pre,
+q,
+ruby,
+s,
+samp,
+section,
+small,
+span,
+strike,
+strong,
+sub,
+summary,
+sup,
+table,
+tbody,
+td,
+tfoot,
+th,
+thead,
+time,
+tr,
+tt,
+u,
+ul,
+var,
+video {
+  padding: 0;
+  margin: 0;
+  font: $font-main;
+  font-size: 100%;
+  vertical-align: baseline;
+  border: 0;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+
+  &::after,
+  &::before {
+    content: "";
+    content: none;
+  }
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+*,
+*::after,
+*::before {
+
+  /* stylelint-disable-line */
+  box-sizing: inherit;
+
+  /* fjarlægjum margin og padding */
+  padding: 0;
+  margin: 0;
+}
+
+html {
+
+  /* stylelint-disable-line */
+  // til þess að texti liggi ekki upp við brún á viewport þegar
+  // við erum < 1200px breiðum skjá, setjum margin á báða kanta html
+  // ruglar líka ekki í grid overlay
+
+  /* setjum box-sizing: border-box; á allt */
+
+  box-sizing: border-box;
+  margin-right: $gutter;
+  margin-left: $gutter;
+  font-family: $font-main;
+  font-size: 16px;
+  line-height: 1.5;
+  @media (min-width: $max-width) {
+    margin: 0;
+  }
+}
+
+img {
+
+  /* stylelint-disable-line */
+  max-width: 100%;
+}
+
+header,
+main {
+
+  /* stylelint-disable-line */
+  max-width: $max-width;
+  margin: 0 auto;
+  // þar sem við erum að eiga við neikvæð margin á grid, setjum overflow-x
+  // hér sem hidden, þá fáum við ekki lárétta skrunstiku
+  overflow-x: hidden;
+}
+
+
+// Gamla buið
+
+
 body {
   background: #444;
   color: #fff;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.header {
+  margin: $gutter;
+  font-family: $font-heading;
+  font-size: 2em;
+}
 
 @import "scss/grid";
 @import "scss/player";

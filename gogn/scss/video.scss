@@ -1,7 +1,4 @@
-.header {
-  margin: $gutter;
-  font-family: $font-main;
-}
+@import "config.scss";
 
 a {
   text-decoration: none;
@@ -18,14 +15,16 @@ h2 {
 }
 
 .category {
-  margin: 0 $gutter;
+  margin-bottom: $gutter * 2;
   border-bottom: 1px solid #fff;
-  margin-bottom: 2em;
 
 
   &__heading {
-    font-family: $font-main;
+    font-family: $font-heading;
+    font-size: 1.5em;
     text-decoration: none;
+    margin: $gutter;
+    padding: 0;
     // padding-top: 4em;
   }
 
@@ -34,14 +33,19 @@ h2 {
     flex-wrap: wrap;
     // justify-content: space-between;
     overflow: hidden;
+    margin: $gutter;
   }
 
   &__video {
-    margin: 0 $gutter;
+    margin: $gutter;
     position: relative;
 
     &__image {
       max-width: 500px;
+    }
+
+    &__title {
+      margin: $gutter/2 0;
     }
 
     &__duration {
@@ -53,6 +57,11 @@ h2 {
       color: #fff;
       background-color: rgba(0, 0, 0, 0.5);
     }
+
+    &__date {
+      margin: $gutter/2 0;
+    }
+
   }
 
 }
