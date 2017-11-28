@@ -23,7 +23,7 @@ class Videos {
 
     const categoryRow = document.createElement('div');
     categoryRow.classList.add('category');
-    // categoryRow.classList.add('row');
+    categoryRow.classList.add('row');
 
     const heading = document.createElement('h2');
     heading.classList.add('category__heading');
@@ -52,6 +52,8 @@ class Videos {
     const videoDiv = document.createElement('a');
     videoDiv.href = 'player.html?id=' + id;
     videoDiv.classList.add('category__video');
+    videoDiv.classList.add('col');
+    videoDiv.classList.add('col-6');
 
     const videoDivImage = document.createElement('img');
     videoDivImage.classList.add('category__video__image');
@@ -208,54 +210,38 @@ class Player {
   }
 
   controls() {
-    // Býr til div fyrir takka og 5 takka div innan þess
-    // - 'Backwards' takki sem fer 3 sek aftur til baka í myndbandinu
-    // - 'Play/Pause' takki sem spilar eða pásar myndbandið
-    // - 'Mute' takki sem slekkur á hljóði án þess að breyta hljóðstyrk
-    // - 'Fullscreen' takki sem lur myndbandið taka allan skjáin
-    // - 'Forwards' takki sem fer 3 sek fram í myndbandinu
+
     console.log('controls()');
-    // const {
-    //   video,
-    // } = this;
 
     const controlContainer = document.querySelector('.controls');
 
-
     const backwardsButton = document.createElement('button');
-    // Tengja icon mynd við, sér klassi fyrir hvern takka ?
-    // backwardsButton.classList.add('backwards');
     backwardsButton.classList.add('button');
+    backwardsButton.classList.add('button__backwards');
     backwardsButton.addEventListener('click', this.onBackClick.bind(this));
     controlContainer.appendChild(backwardsButton);
 
     const playPauseButton = document.createElement('button');
-    // Tengja icon mynd við, sér klassi fyrir hvern takka ?
-    // playPauseButton.classList.add('playPause');
     playPauseButton.classList.add('button');
-    playPauseButton.classList.add('button__playPause');
+    playPauseButton.classList.add('button__play');
     playPauseButton.addEventListener('click', this.onPlayPause.bind(this));
+    // playPauseButton.addEventListener('click', this.onPlayPause(playPauseButton));
     controlContainer.appendChild(playPauseButton);
 
     const muteButton = document.createElement('button');
-    // Tengja icon mynd við, sér klassi fyrir hvern takka ?
-    // muteButton.classList.add('mute');
     muteButton.classList.add('button');
     muteButton.classList.add('button__mute');
     muteButton.addEventListener('click', this.onMute.bind(this));
+    // muteButton.addEventListener('click', this.onMuteButton);
     controlContainer.appendChild(muteButton);
 
     const fullscreenButton = document.createElement('button');
-    // Tengja icon mynd við, sér klassi fyrir hvern takka ?
-    // fullscreenButton.classList.add('fullscreen');
     fullscreenButton.classList.add('button');
-    muteButton.classList.add('button__fullscreen');
+    fullscreenButton.classList.add('button__fullscreen');
     fullscreenButton.addEventListener('click', this.onFullscreen.bind(this));
     controlContainer.appendChild(fullscreenButton);
 
     const forwardsButton = document.createElement('button');
-    // Tengja icon mynd við, sér klassi fyrir hvern takka ?
-    // forwardsButton.classList.add('forwards');
     forwardsButton.classList.add('button');
     forwardsButton.classList.add('button__forwards');
     forwardsButton.addEventListener('click', this.onForwardClick.bind(this));
@@ -278,6 +264,16 @@ class Player {
     }
   }
 
+  onPlayPauseButton(button) {
+    if (button.classList.contains('button__play')) {
+      button.classList.remove('button__play');
+      button.classList.add('button__pause');
+    } else {
+      button.classList.remove('button__pause');
+      button.classList.add('button__play');
+    }
+  }
+
   onFullscreen() {
     if (this.videoObj.requestFullscreen) {
       this.videoObj.requestFullscreen();
@@ -293,6 +289,16 @@ class Player {
       this.videoObj.muted = false;
     } else {
       this.videoObj.muted = true;
+    }
+  }
+
+  onMuteButton(button) {
+    if (button.classList.contains('button__unmute')) {
+      button.classList.remove('button__unmute');
+      button.classList.add('button__mute');
+    } else {
+      button.classList.remove('button__mute');
+      button.classList.add('button__unmute');
     }
   }
 

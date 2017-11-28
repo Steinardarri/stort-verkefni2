@@ -1,37 +1,56 @@
 @import "scss/config.scss";
 
+.header {
+  display: flex;
+}
+
 .title {
   font-family: $font-heading;
-  margin: $gutter 50%;
   font-size: 2em;
-  height: auto;
+  margin: $gutter auto;
 }
 
 .player {
   display: flex;
 
-  max-width: $max-width;
-  margin: 0 auto;
-  // þar sem við erum að eiga við neikvæð margin á grid, setjum overflow-x
-  // hér sem hidden, þá fáum við ekki lárétta skrunstiku
-  overflow-x: hidden;
-
   &__video {
-    width: 50%;
+    max-width: 800px;
+    max-height: 600px;
     margin: $gutter auto;
   }
+}
+
+.controlContainer {
+  display: flex;
+  margin-top: $gutter*2;
+}
+
+.controls {
+  display: flex;
+  margin: 0 auto;
 }
 
 .button {
   height: 100px;
   width: 100px;
+  margin: $gutter;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0;
 
-  &__playPause {
+  &__play {
     display: block;
     content: ' ';
     background-size: 100px 100px;
     background-image: url('../img/play.svg');
   }
+
+  &__pause {
+    display: block;
+    content: ' ';
+    background-size: 100px 100px;
+    background-image: url('../img/pause.svg');
+  }
+
 
   &__backwards {
     display: block;
@@ -47,11 +66,18 @@
     background-image: url('../img/mute.svg');
   }
 
+  &__unmute {
+    display: block;
+    content: ' ';
+    background-size: 100px 100px;
+    background-image: url('../img/unmute.svg');
+  }
+
   &__fullscreen {
     display: block;
     content: ' ';
     background-size: 100px 100px;
-    background-image: url('../img/fullscreen .svg');
+    background-image: url('../img/fullscreen.svg');
   }
 
   &__forwards {
@@ -60,4 +86,16 @@
     background-size: 100px 100px;
     background-image: url('../img/next.svg');
   }
+}
+
+.tilbaka {
+  display: flex;
+  margin: $gutter;
+}
+
+.backbutton {
+  width: 200px;
+  height: 50px;
+  margin: $gutter auto;
+  border: border: 3px solid black;
 }
