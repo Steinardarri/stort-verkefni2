@@ -1,4 +1,4 @@
-@import "config.scss";
+@import "scss/config.scss";
 
 a {
   text-decoration: none;
@@ -40,6 +40,8 @@ h2 {
     position: relative;
 
     &__image {
+
+    }
 
     &__title {
       margin: $gutter/2 0;

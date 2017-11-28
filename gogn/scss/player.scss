@@ -1,4 +1,4 @@
-@import "config.scss";
+@import "scss/config.scss";
 
 .title {
   font-family: $font-heading;
@@ -9,7 +9,7 @@
 
 .player {
   display: flex;
-  
+
   max-width: $max-width;
   margin: 0 auto;
   // þar sem við erum að eiga við neikvæð margin á grid, setjum overflow-x
@@ -19,5 +19,45 @@
   &__video {
     width: 50%;
     margin: $gutter auto;
+  }
+}
+
+.button {
+  height: 100px;
+  width: 100px;
+
+  &__playPause {
+    display: block;
+    content: ' ';
+    background-size: 100px 100px;
+    background-image: url('../img/play.svg');
+  }
+
+  &__backwards {
+    display: block;
+    content: ' ';
+    background-size: 100px 100px;
+    background-image: url('../img/back.svg');
+  }
+
+  &__mute {
+    display: block;
+    content: ' ';
+    background-size: 100px 100px;
+    background-image: url('../img/mute.svg');
+  }
+
+  &__fullscreen {
+    display: block;
+    content: ' ';
+    background-size: 100px 100px;
+    background-image: url('../img/fullscreen .svg');
+  }
+
+  &__forwards {
+    display: block;
+    content: ' ';
+    background-size: 100px 100px;
+    background-image: url('../img/next.svg');
   }
 }

@@ -219,41 +219,47 @@ class Player {
     //   video,
     // } = this;
 
+    const controlContainer = document.querySelector('.controls');
+
 
     const backwardsButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
     // backwardsButton.classList.add('backwards');
     backwardsButton.classList.add('button');
     backwardsButton.addEventListener('click', this.onBackClick.bind(this));
-    this.container.appendChild(backwardsButton);
+    controlContainer.appendChild(backwardsButton);
 
     const playPauseButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
     // playPauseButton.classList.add('playPause');
     playPauseButton.classList.add('button');
+    playPauseButton.classList.add('button__playPause');
     playPauseButton.addEventListener('click', this.onPlayPause.bind(this));
-    this.container.appendChild(playPauseButton);
+    controlContainer.appendChild(playPauseButton);
 
     const muteButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
     // muteButton.classList.add('mute');
     muteButton.classList.add('button');
+    muteButton.classList.add('button__mute');
     muteButton.addEventListener('click', this.onMute.bind(this));
-    this.container.appendChild(muteButton);
+    controlContainer.appendChild(muteButton);
 
     const fullscreenButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
     // fullscreenButton.classList.add('fullscreen');
     fullscreenButton.classList.add('button');
+    muteButton.classList.add('button__fullscreen');
     fullscreenButton.addEventListener('click', this.onFullscreen.bind(this));
-    this.container.appendChild(fullscreenButton);
+    controlContainer.appendChild(fullscreenButton);
 
     const forwardsButton = document.createElement('button');
     // Tengja icon mynd við, sér klassi fyrir hvern takka ?
     // forwardsButton.classList.add('forwards');
     forwardsButton.classList.add('button');
+    forwardsButton.classList.add('button__forwards');
     forwardsButton.addEventListener('click', this.onForwardClick.bind(this));
-    this.container.appendChild(forwardsButton);
+    controlContainer.appendChild(forwardsButton);
   }
 
   onForwardClick() {
