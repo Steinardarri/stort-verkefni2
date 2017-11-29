@@ -5,6 +5,7 @@ Steinar: sth319 - Ásdís: abg49 - Birgir: bos32 - Rakel: rao15
 ----
 
 [Linkur á vefsíðuna](https://notendur.hi.is/sth319/vefforritun/stort-verkefni2/index.html)
+*Vefsíðan notar útgáfuna í 'steinar' greininni*
 
 ### Upplýsingar um notkun á vefsíðunni
 Veldu myndband á forsíðuni til að spila með því að smella á það.
